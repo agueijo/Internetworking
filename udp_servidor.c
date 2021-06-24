@@ -41,6 +41,8 @@ int main() {
 
 		suma = (struct psuma *) buffer;
 
+		printf ("Recibí %d + %d\n", ntohs (suma->val1) , ntohs (suma->val2) );
+
 		suma->res = htonl( ntohs(suma->val1) + ntohs(suma->val2) );	
 
 		sendto ( sd, buffer, P_SIZE, 0, (struct sockaddr *) &cliente , lon );
