@@ -1,54 +1,65 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
-#include <sys/types.h> 
+#include <errno.h>
+#include <sys/types.h>
 #include <sys/socket.h>
+#include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+
+#define P_SIZE sizeof(struct psuma) 
 
 struct psuma {
 	uint16_t val1;
 	uint16_t val2;
-        uint32_t res;	
+	uint32_t res; 
 };
-
-#define P_SIZE sizeof(struct psuma)
 
 int main() {
 
 	int sd;
-	int lon;
 	char buffer[P_SIZE];
-	struct psuma *suma;	
+	struct psuma *suma;
+	socklen_t lon;
 	struct sockaddr_in servidor;
 	struct sockaddr_in cliente;
 
-	sd = socket ( PF_INET, SOCK_DGRAM, IPPROTO_UDP );
+	sd = socket ( PF_INET , SOCK_DGRAM , IPPROTO_UDP );
 
 	servidor.sin_family = AF_INET;
 	servidor.sin_port = htons(4444);
 	servidor.sin_addr.s_addr = INADDR_ANY;
 
-	lon = sizeof (servidor);
+	lon = sizeof (struct sockaddr_in);
 
-	bind ( sd , (struct sockaddr *) &servidor , lon );
+	if ( bind ( sd , (struct sockaddr *) &servidor , lon ) < 0 )
+	{
+		perror ("Error en bind");
+		exit(-1);
+	}
 
-	while (1) {
+	while (1) { 
 
-		lon = sizeof (cliente);
-
-		recvfrom ( sd, buffer, P_SIZE , 0, (struct sockaddr *) &cliente, &lon);
-
+		recvfrom (sd, buffer, P_SIZE, 0, (struct sockaddr *) &cliente, &lon);
+		
 		suma = (struct psuma *) buffer;
 
-		printf ("Recibí %d + %d\n", ntohs (suma->val1) , ntohs (suma->val2) );
+	        printf ("Recibí val1=%d val2=%d res=%d\n"
+					    , ntohs (suma->val1)
+                                            , ntohs (suma->val2)
+                                            , ntohl (suma->res) );
 
-		suma->res = htonl( ntohs(suma->val1) + ntohs(suma->val2) );	
 
-		sendto ( sd, buffer, P_SIZE, 0, (struct sockaddr *) &cliente , lon );
+		suma->res = htonl ( ntohs(suma->val1) + ntohs(suma->val2) ) ;
+
+		sendto (sd, buffer, P_SIZE, 0, (struct sockaddr *) &cliente, lon); 
 
 	}
 
 	close (sd);
+
+	return(0);
 
 }
