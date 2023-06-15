@@ -4,21 +4,21 @@
 
 int main ()
 {
-	char str[] = "HOLA";	
-	int n;	
+    char str[] = "HOLA";    
+    int n;  
 
-	n = 0;
+    n = 0;
 
-	while ( n < strlen(str) ) {
+    while ( n < strlen(str) ) {
 
-		printf ("%c", str[n]);
+        printf ("%c", str[n]);
 
-		n++;
+        n++;
 
-	}
+    }
 
-	printf ("\n");
+    printf ("\n");
 
-	return (0);
+    return (0);
 
 }

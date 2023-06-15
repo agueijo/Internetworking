@@ -4,17 +4,17 @@
 
 int main ()
 {
-	char str[] = "HOLA";
-	int n;
+    char str[] = "HOLA";
+    int n;
 
-	for ( n=0; n < strlen(str); n++ ) {
-	
-		printf ("%c", str[n]);
+    for ( n=0; n < strlen(str); n++ ) {
+    
+        printf ("%c", str[n]);
 
-	}
+    }
 
-	printf ("\n");
+    printf ("\n");
 
-	return (0);
+    return (0);
 
 }

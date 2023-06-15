@@ -8,20 +8,20 @@
 
 int main ()
 {
-	int n1 = 10;
-	int n2 = 20;
+    int n1 = 10;
+    int n2 = 20;
 
-	// VER QUE PASA CON ESTO:
-	// if ( n1 = n2 ) {
-	if ( n1 == n2 || n2 == 20) {
+    // VER QUE PASA CON ESTO:
+    // if ( n1 = n2 ) {
+    if ( n1 == n2 || n2 == 20) {
 
-		printf ("VERDADERO\n");
+        printf ("VERDADERO\n");
 
-	} else {
+    } else {
 
-		printf ("FALSO\n");
-	}
+        printf ("FALSO\n");
+    }
 
-	return (0);
+    return (0);
 
 }

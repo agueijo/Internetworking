@@ -5,35 +5,35 @@
 
 int main() {
 
-	int i;
-	int pid;
+    int i;
+    int pid;
 
-	i = 100;
+    i = 100;
 
-	pid = fork();
+    pid = fork();
 
-	if ( pid == 0) {
+    if ( pid == 0) {
 
 
        for ( i = 0 ; (i <= 1000); i++) {
-			
-			sleep(1);
+            
+            sleep(1);
 
             printf ("HIJO: El valor de i es %d\n", i);
 
        }
 
-	} else {	
+    } else {    
 
-		for ( i = 0 ; (i <= 1000); i++) {
-			
-			sleep(1);
+        for ( i = 0 ; (i <= 1000); i++) {
+            
+            sleep(1);
 
-			printf ("PADRE: El valor de i es %d\n", i);
+            printf ("PADRE: El valor de i es %d\n", i);
 
-		}
+        }
 
-	}
+    }
 
-	return (0);
+    return (0);
 }
